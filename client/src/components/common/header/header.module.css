@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.root:hover {
+  background-color: #000;
+}
+
 .logo {
   display: block;
   margin-left: 3rem;
