@@ -1,0 +1,29 @@
+html {
+  font-size: 62.5%;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+  color: #000;
+  font-family: "Open Sans", Helvetica, Arial;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  font-size: 1.6rem;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
