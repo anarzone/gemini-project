@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 /* Vendor style files import here */
 import "normalize.css";
@@ -8,8 +9,14 @@ import "../node_modules/slick-carousel/slick/slick-theme.css";
 import "./assets/styles/vendorOverride.css";
 
 import "./index.css";
-import App from "./App";
+import Routes from "./routes";
 import * as serviceWorker from "./serviceWorker";
+
+const App = () => (
+  <Router>
+    <Routes />
+  </Router>
+);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
