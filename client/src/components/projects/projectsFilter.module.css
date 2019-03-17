@@ -1,0 +1,50 @@
+.root {
+  width: 100%;
+  background-color: white;
+}
+
+.bar {
+  display: -webkit-flex;
+  display: flex;
+  background: #fff;
+  /* width: 100%; */
+  padding: 30px 48px;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.item {
+  margin-right: 60px;
+  cursor: pointer;
+}
+
+.button {
+  font-family: "Open Sans", Helvetica, Arial;
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  display: inline;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.buttonText {
+  font-size: 2.1rem;
+  line-height: 28px;
+  margin-bottom: 0;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.projectsCount {
+  margin-left: auto;
+  line-height: 28px;
+  font-size: 1.4rem;
+  font-weight: 300;
+}

@@ -1,28 +1,31 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import styles from "./headerNav.module.css";
 
-const Nav = ({ showedSearchBar }) => {
+const Nav = ({ showedSearchBar, whiteHeader }) => {
   return (
     <nav
       className={styles.root}
       style={{ visibility: `${showedSearchBar ? "hidden" : "visible"}` }}
     >
-      <ul className={styles.menu}>
+      <ul
+        className={
+          whiteHeader
+            ? [styles.menu, styles.menuOnWhite].join(" ")
+            : styles.menu
+        }
+      >
         <li>
-          <a href="">About</a>
+          <Link to="/">About</Link>
         </li>
         <li>
-          <a href="">Projects</a>
+          <Link to="/projects">Projects</Link>
         </li>
         <li>
-          <a href="">Expertise</a>
+          <Link to="/">Expertise</Link>
         </li>
         <li>
-          <a href="">News</a>
-        </li>
-        <li>
-          <a href="">Contact</a>
+          <Link to="/">Contact</Link>
         </li>
       </ul>
     </nav>

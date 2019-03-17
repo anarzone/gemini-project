@@ -13,6 +13,15 @@
   background-color: #000;
 }
 
+.whiteBg {
+  background-color: white;
+  position: relative;
+}
+
+.whiteBg:hover {
+  background-color: white !important;
+}
+
 .logo {
   display: block;
   margin-left: 3rem;
@@ -21,4 +30,8 @@
 
 .logo img {
   width: 20rem;
+}
+
+.whiteBg {
+  border-bottom: 1px solid #ddd;
 }

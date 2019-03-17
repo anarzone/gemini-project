@@ -31,3 +31,7 @@
 .menu li a:hover {
   opacity: 1;
 }
+
+.menuOnWhite li a {
+  color: #000;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Nav from "./HeaderNav";
 import HeaderSearch from "./HeaderSearch";
 import styles from "./header.module.css";
@@ -16,21 +17,38 @@ class Header extends Component {
     this.setState({ showSearchBar: false });
   };
 
+  headerClass = () => {
+    const { headerStyle } = this.props;
+    let headerClass = null;
+    if (headerStyle === "whiteBg") {
+      headerClass = [styles.root, styles.whiteBg].join(" ");
+    } else {
+      headerClass = styles.root;
+    }
+
+    return headerClass;
+  };
+
   render() {
     return (
-      <header className={styles.root}>
-        <a
+      <header className={this.headerClass()}>
+        <Link
+          to="/"
           className={styles.logo}
           style={{ zIndex: `${this.state.showSearchBar ? "1000" : "initial"}` }}
         >
           <img src="/assets/images/main-logo.png" alt="Logo" />
-        </a>
+        </Link>
         <HeaderSearch
           show={this.state.showSearchBar}
           onShow={this.showSearchBar}
           onHide={this.hideSearchBar}
+          whiteHeader={this.props.headerStyle ? true : false}
         />
-        <Nav showedSearchBar={this.state.showSearchBar} />
+        <Nav
+          showedSearchBar={this.state.showSearchBar}
+          whiteHeader={this.props.headerStyle ? true : false}
+        />
       </header>
     );
   }

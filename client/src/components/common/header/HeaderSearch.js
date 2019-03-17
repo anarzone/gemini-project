@@ -2,14 +2,25 @@ import React from "react";
 
 import styles from "./headerSearch.module.css";
 
-const HeaderSearch = ({ show, onShow, onHide }) => {
+const HeaderSearch = ({ show, onShow, onHide, whiteHeader }) => {
   const hideSearchBar = event => {
     event.preventDefault();
     onHide();
   };
 
+  const rootClass = () => {
+    let classes = null;
+    if (whiteHeader) {
+      classes = [styles.root, styles.onWhiteHeader].join(" ");
+    } else {
+      classes = styles.root;
+    }
+
+    return classes;
+  };
+
   return (
-    <div className={styles.root}>
+    <div className={rootClass()}>
       <button
         className={["icon-search", styles.btn].join(" ")}
         onClick={() => onShow()}
