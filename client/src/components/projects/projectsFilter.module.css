@@ -8,7 +8,7 @@
   display: flex;
   background: #fff;
   /* width: 100%; */
-  padding: 30px 48px;
+  padding: 30px;
   -webkit-flex-direction: row;
   flex-direction: row;
   -webkit-align-items: center;
