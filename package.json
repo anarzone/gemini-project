@@ -1,0 +1,30 @@
+{
+  "name": "gemini-project",
+  "version": "1.0.0",
+  "description": "This website belongs to Gemini Company",
+  "main": "index.js",
+  "dependencies": {
+    "mongoose": "^5.4.19",
+    "mongoose-timestamp": "^0.6.0",
+    "restify": "^8.2.0",
+    "restify-errors": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevAbas/gemini-project.git"
+  },
+  "keywords": [],
+  "author": "Thurabli Abas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevAbas/gemini-project/issues"
+  },
+  "homepage": "https://github.com/DevAbas/gemini-project#readme"
+}
