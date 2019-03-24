@@ -14,6 +14,9 @@ const ProjectSchema = new mongoose.Schema({
   projectImage: {
     type: String,
     required: true
+  },
+  category: {
+    type: Object
   }
 });
 

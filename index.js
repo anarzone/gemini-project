@@ -1,7 +1,8 @@
 const restify = require("restify");
 const mongoose = require("mongoose");
-const rjwt = require("restify-jwt-community");
 const config = require("./config");
+// TO PROTECT ROUTES
+const rjwt = require("restify-jwt-community");
 
 const server = restify.createServer();
 
@@ -24,7 +25,10 @@ server.use(rjwt({ secret: config.JWT_SECRET }).unless({ path: ["/auth"] }));
 // LISTEN TO THE PORT
 server.listen(config.PORT, () => {
   mongoose.set("useFindAndModify", false);
-  mongoose.connect(config.MONGODB_URL, { useNewUrlParser: true });
+  mongoose.connect(config.MONGODB_URL, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  });
 });
 
 const db = mongoose.connection;

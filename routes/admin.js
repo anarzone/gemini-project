@@ -40,7 +40,7 @@ module.exports = server => {
       const admin = await auth.authenticate(email, password);
       // Create JWT
       const token = jwt.sign(admin.toJSON(), config.JWT_SECRET, {
-        expiresIn: "15m"
+        expiresIn: "3600m"
       });
       const { iat, exp } = jwt.decode(token);
       // Respond with token
