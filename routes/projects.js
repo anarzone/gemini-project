@@ -25,7 +25,7 @@ module.exports = server => {
       if (req.files.hasOwnProperty(key)) {
         fs.renameSync(
           req.files[key].path,
-          `${__dirname}/../uploads/${req.files[key].name}`
+          `${__dirname}/../client/public/assets/images/${req.files[key].name}`
         );
       }
     }

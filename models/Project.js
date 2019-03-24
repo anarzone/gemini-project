@@ -1,15 +1,18 @@
 const mongoose = require("mongoose");
 const timestamp = require("mongoose-timestamp");
+const mongooseIntl = require("mongoose-intl");
 
 const ProjectSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    intl: true
   },
   content: {
     type: String,
-    required: true
+    required: true,
+    intl: true
   },
   projectImage: {
     type: String,
@@ -21,6 +24,10 @@ const ProjectSchema = new mongoose.Schema({
 });
 
 ProjectSchema.plugin(timestamp);
+ProjectSchema.plugin(mongooseIntl, {
+  languages: ["az", "en", "ru"],
+  defaultLanguage: "az"
+});
 
 const Project = mongoose.model("Project", ProjectSchema);
 module.exports = Project;
