@@ -1,21 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-
+import Routes from "./routes";
+import store from "./store";
 /* Vendor style files import here */
 import "normalize.css";
 import "../node_modules/slick-carousel/slick/slick.css";
 import "../node_modules/slick-carousel/slick/slick-theme.css";
 import "./assets/styles/vendorOverride.css";
-
 import "./index.css";
-import Routes from "./routes";
 import * as serviceWorker from "./serviceWorker";
 
 const App = () => (
-  <Router>
-    <Routes />
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <Routes />
+    </Router>
+  </Provider>
 );
 
 ReactDOM.render(<App />, document.getElementById("root"));
