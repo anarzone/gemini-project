@@ -1,8 +1,14 @@
 const restify = require("restify");
 const mongoose = require("mongoose");
+const corsMiddleware = require("restify-cors-middleware");
 const config = require("./config");
-// TO PROTECT ROUTES
+// TO PROTECT THE ROUTES
 const rjwt = require("restify-jwt-community");
+
+const cors = corsMiddleware({
+  preflightMaxAge: 5,
+  origins: ["*"]
+});
 
 const server = restify.createServer();
 
@@ -10,6 +16,8 @@ const server = restify.createServer();
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser({ mapParams: false }));
+server.pre(cors.preflight);
+server.use(cors.actual);
 server.get(
   "//(.*)?.*/",
   restify.plugins.serveStatic({

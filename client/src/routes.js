@@ -10,6 +10,12 @@ import AdminLogin from "./containers/Admin/AdminLogin";
 const Routes = () => (
   <Switch>
     <Route path="/admin" component={AdminLogin} />
+    <Route
+      path="/admin/dashboard"
+      render={() => {
+        "salam";
+      }}
+    />
     <Route path="/" exact component={Home} />
     <Route path="/projects" component={Projects} />
   </Switch>
