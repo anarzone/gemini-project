@@ -3,12 +3,7 @@ import { apiURL } from "../axios";
 import setAuthToken from "../utils/setAuthToken";
 
 // ACTION TYPES
-import {
-  AUTHENTICATE_ADMIN,
-  GET_ERRORS,
-  CLEAR_ERRORS,
-  SET_CURRENT_USER
-} from "./types";
+import { GET_ERRORS, CLEAR_ERRORS, SET_CURRENT_USER } from "./types";
 
 // LOGIN - Get Admin Token
 export function loginAdmin(data) {
@@ -16,7 +11,6 @@ export function loginAdmin(data) {
     try {
       const admin = await apiURL.post("/auth", data);
       // Save to localStorage
-      console.log(admin.data.token);
       const { token } = admin.data;
       // Set token to ls
       localStorage.setItem("jwtToken", `bearer ${token}`);
@@ -28,8 +22,8 @@ export function loginAdmin(data) {
       dispatch(setCurrentUser(decoded));
       dispatch(clearErrors());
     } catch (err) {
+      console.log(err);
       const error = err.response.data;
-      console.log("LOGIN ERROR", error);
       dispatch({
         type: GET_ERRORS,
         payload: error
@@ -52,3 +46,13 @@ export function clearErrors() {
     type: CLEAR_ERRORS
   };
 }
+
+// Log user out
+export const logoutUser = () => dispatch => {
+  // Remove token from localStorage
+  localStorage.removeItem("jwtToken");
+  // Remove auth header for future requests
+  setAuthToken(false);
+  // Set current user to {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
+};
