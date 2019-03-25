@@ -8,7 +8,7 @@ import Home from "../components/page/home/Home";
 import Projects from "../components/page/projects/Projects";
 // ADMIN PAGES
 import AdminLogin from "../containers/Admin/AdminLogin";
-import Dashboard from "../containers/Admin/Dashboard/Dashboard";
+import ProjectList from "../containers/Admin/Dashboard/Projects/ProjectList";
 
 const Routes = () => (
   <div>
@@ -17,7 +17,7 @@ const Routes = () => (
 
     <Route path="/admin" component={AdminLogin} />
     <Switch>
-      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/dashboard" component={ProjectList} />
     </Switch>
   </div>
 );

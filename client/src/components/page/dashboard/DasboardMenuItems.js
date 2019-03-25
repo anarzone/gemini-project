@@ -77,7 +77,7 @@ class DasboardMenuItems extends React.Component {
           <ListItemIcon>
             <Widgets />
           </ListItemIcon>
-          <Link to="/" className={classes.parentLink}>
+          <Link to="/dashboard" className={classes.parentLink}>
             Proyektlər
           </Link>
           {menu.project.openDropdown ? (
