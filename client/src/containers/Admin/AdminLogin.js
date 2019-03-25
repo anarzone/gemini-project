@@ -22,13 +22,13 @@ class AdminLogin extends React.Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/admin/dashboard");
+      this.props.history.push("/dashboard");
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/admin/dashboard");
+      this.props.history.push("/dashboard");
     }
 
     if (!isEmpty(nextProps.errors) && nextProps.errors !== {}) {
@@ -128,4 +128,4 @@ const mapStateToProps = state => {
   return { auth: state.auth, errors: state.errors };
 };
 
-export default connect(mapStateToProps)(withRouter(AdminLogin));
+export default withRouter(connect(mapStateToProps)(AdminLogin));
