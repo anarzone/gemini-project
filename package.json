@@ -9,6 +9,7 @@
     "mongoose": "^5.4.19",
     "mongoose-intl": "^3.1.0",
     "mongoose-timestamp": "^0.6.0",
+    "redux-logger": "^3.0.6",
     "restify": "^8.2.0",
     "restify-cors-middleware": "^1.1.1",
     "restify-errors": "^7.0.0",

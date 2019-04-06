@@ -31,7 +31,7 @@ module.exports = server => {
     });
   });
 
-  // Login to the database [ADMIN]
+  // Login to the database as [ADMIN]
   server.post("/auth", async (req, res, next) => {
     const { email, password } = req.body;
 

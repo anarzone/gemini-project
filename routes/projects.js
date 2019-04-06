@@ -21,6 +21,7 @@ module.exports = server => {
 
   // Create new project
   server.post("/projects", async (req, res, next) => {
+    // Upload file to client folder
     for (var key in req.files) {
       if (req.files.hasOwnProperty(key)) {
         fs.renameSync(
@@ -29,11 +30,15 @@ module.exports = server => {
         );
       }
     }
+    if (!req.files.projectImage) {
+      return next(new errors.InvalidContentError("Project image is required"));
+    }
     const { title, content, cat_id } = req.body;
     let project;
     // Find category by id to add new project
-    await ProjectCategory.findOne({ _id: cat_id }, (err, result) => {
-      if (!result) {
+    await ProjectCategory.findOne({ _id: cat_id }, (err, category) => {
+      if (err) throw console.log(err);
+      if (!category) {
         return next(
           res.send(
             new errors.NotFoundError("There is no any category with this id")
@@ -41,10 +46,18 @@ module.exports = server => {
         );
       } else {
         project = new Project({
-          category: result,
-          title,
-          content,
-          projectImage: `${config.URL}/${req.files.projectImage.name}`
+          title: {
+            az: title.az,
+            en: title.en,
+            ru: title.ru
+          },
+          content: {
+            az: content.az,
+            en: content.en,
+            ru: content.ru
+          },
+          projectImage: `${config.URL}/${req.files.projectImage.name}`,
+          category
         });
       }
     });
@@ -61,17 +74,21 @@ module.exports = server => {
   // Add new categories for the projects
   server.post("/projects/categories", async (req, res, next) => {
     const { name } = req.body;
+    // Upload file to client folder
     for (var key in req.files) {
       if (req.files.hasOwnProperty(key)) {
         fs.renameSync(
           req.files[key].path,
-          `${__dirname}/../uploads/${req.files[key].name}`
+          `${__dirname}/../client/public/assets/images/projects/${req.files[key].name}`
         );
       }
     }
+    if (!req.files.bannerImage) {
+      return next(new errors.InvalidContentError("Banner image for category is required"));
+    }
     const category = new ProjectCategory({
       name,
-      category_image: `${config.URL}/${req.files.category_image.name}`
+      bannerImage: `${req.files.bannerImage.name}`
     });
     try {
       const newCategory = await category.save();

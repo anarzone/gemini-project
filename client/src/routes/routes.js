@@ -5,19 +5,19 @@ import PrivateRoute from "./PrivateRoute";
 
 // COMPONENTS
 import Home from "../components/page/home/Home";
-import Projects from "../components/page/projects/Projects";
-// ADMIN PAGES
+import ProjectsPage from "../components/page/projects/Projects";
+// DASHBOARD
 import AdminLogin from "../containers/Admin/AdminLogin";
-import ProjectList from "../containers/Admin/Dashboard/Projects/ProjectList";
+import Projects from "../containers/Admin/Dashboard/Projects/Projects";
 
 const Routes = () => (
   <div>
     <Route path="/" exact component={Home} />
-    <Route path="/projects" component={Projects} />
+    <Route path="/projects" component={ProjectsPage} />
 
     <Route path="/admin" component={AdminLogin} />
     <Switch>
-      <PrivateRoute exact path="/dashboard" component={ProjectList} />
+      <PrivateRoute exact path="/dashboard" component={Projects} />
     </Switch>
   </div>
 );
