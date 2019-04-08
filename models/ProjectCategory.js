@@ -5,7 +5,6 @@ const mongooseIntl = require("mongoose-intl");
 const ProjectCategorySchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     intl: true
   },
   bannerImage: {
@@ -17,7 +16,6 @@ const ProjectCategorySchema = new mongoose.Schema({
 ProjectCategorySchema.plugin(timestamp);
 ProjectCategorySchema.plugin(mongooseIntl, {
   languages: ["az", "en", "ru"],
-  defaultLanguage: "az"
 });
 
 const ProjectCategory = mongoose.model(

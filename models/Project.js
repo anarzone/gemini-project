@@ -26,7 +26,6 @@ const ProjectSchema = new mongoose.Schema({
 ProjectSchema.plugin(timestamp);
 ProjectSchema.plugin(mongooseIntl, {
   languages: ["az", "en", "ru"],
-  defaultLanguage: "az"
 });
 
 const Project = mongoose.model("Project", ProjectSchema);

@@ -99,7 +99,7 @@ class DasboardMenuItems extends React.Component {
           </List>
         </Collapse>
         <ListItem button onClick={() => this.handleClick("expertise")}>
-          <ListItemIcon>icon</ListItemIcon>
+          <ListItemIcon><AddBox /></ListItemIcon>
           <Link to="/" className={classes.parentLink}>
             Fəaliyyətlər
           </Link>
@@ -122,7 +122,7 @@ class DasboardMenuItems extends React.Component {
           </List>
         </Collapse>
         <ListItem button onClick={() => this.handleClick("slider")}>
-          <ListItemIcon>icon</ListItemIcon>
+          <ListItemIcon><AddBox /></ListItemIcon>
           <Link to="/" className={classes.parentLink}>
             Slider
           </Link>

@@ -1,5 +1,8 @@
 import React from "react";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import { setLocale } from '../../../actions/localeActions';
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,6 +13,7 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
+import Button from '@material-ui/core/Button';
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import DasboardMenuItems from "../../../components/page/dashboard/DasboardMenuItems";
@@ -93,13 +97,68 @@ const styles = theme => ({
   },
   h5: {
     marginBottom: theme.spacing.unit * 2
+  },
+  langBtn: {
+    fontSize: 14,
+    marginLeft: 4
+  },
+  activeButton: {
+    borderColor: '#4caf50'
   }
 });
 
 class Dashboard extends React.Component {
   state = {
-    open: true
+    open: true,
+    langButton: {
+      az: true,
+      en: false,
+      ru: false
+    }
   };
+
+  componentDidMount() {
+    if(localStorage.geminiLang) {
+      this.changeActiveButtonStyle(localStorage.geminiLang)
+    }
+  }
+
+
+  onChangeLang = (lang) => {
+    this.changeActiveButtonStyle(lang)
+    this.props.dispatch(setLocale(lang));
+  }
+
+  changeActiveButtonStyle = (lang) => {
+    if(lang === 'az') {
+      this.setState({
+        langButton: {
+          ...this.state.langButton,
+          az: true,
+          en: false,
+          ru: false
+        }
+      })
+    } else if(lang === 'en') {
+      this.setState({
+        langButton: {
+          ...this.state.langButton,
+          az: false,
+          en: true,
+          ru: false
+        }
+      })
+    } else if(lang === 'ru') {
+      this.setState({
+        langButton: {
+          ...this.state.langButton,
+          az: false,
+          en: false,
+          ru: true
+        }
+      })
+    }
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -111,6 +170,7 @@ class Dashboard extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { langButton } = this.state;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -145,6 +205,15 @@ class Dashboard extends React.Component {
             >
               GEMINI - Admin
             </Typography>
+            <Button variant="outlined" color="inherit" className={langButton.az ? [classes.langBtn, classes.activeButton].join(' ') : classes.langBtn} onClick={() => this.onChangeLang('az')}>
+              AZE
+            </Button>
+            <Button variant="outlined" color="inherit" className={langButton.en ? [classes.langBtn, classes.activeButton].join(' ') : classes.langBtn} onClick={() => this.onChangeLang('en')}>
+              ENG
+            </Button>
+            <Button variant="outlined" color="inherit" className={langButton.ru ? [classes.langBtn, classes.activeButton].join(' ') : classes.langBtn} onClick={() => this.onChangeLang('ru')}>
+              RUS
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -176,4 +245,10 @@ Dashboard.propTypes = {
   children: PropTypes.node
 };
 
-export default withStyles(styles)(Dashboard);
+const mapStateToProps = state => {
+  return {
+    lang: state.locale.lang
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Dashboard));

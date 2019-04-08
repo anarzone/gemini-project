@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./projectsFilter.module.css";
 
-const ProjectsFilter = () => (
+const CategoryFilter = () => (
   <section className={styles.root}>
     <div className={styles.bar}>
       <div className={styles.item}>
@@ -16,4 +16,4 @@ const ProjectsFilter = () => (
   </section>
 );
 
-export default ProjectsFilter;
+export default CategoryFilter;

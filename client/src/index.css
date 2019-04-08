@@ -28,6 +28,10 @@ code {
     monospace;
 }
 
-.MuiDialog-paperScrollPaper-191 {
-  max-height: initial !important;
+.route-wrapper {
+  position: relative;
+}
+
+.route-wrapper > div {
+  position: absolute;
 }

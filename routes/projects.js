@@ -73,7 +73,8 @@ module.exports = server => {
 
   // Add new categories for the projects
   server.post("/projects/categories", async (req, res, next) => {
-    const { name } = req.body;
+    const name = JSON.parse(req.body.name);
+    
     // Upload file to client folder
     for (var key in req.files) {
       if (req.files.hasOwnProperty(key)) {
@@ -86,10 +87,13 @@ module.exports = server => {
     if (!req.files.bannerImage) {
       return next(new errors.InvalidContentError("Banner image for category is required"));
     }
-    const category = new ProjectCategory({
-      name,
-      bannerImage: `${req.files.bannerImage.name}`
-    });
+    const category = new ProjectCategory({});
+    category.name = {
+      az: name.az,
+      en: name.en,
+      ru: name.ru
+    }
+    category.bannerImage = `${req.files.bannerImage.name}`
     try {
       const newCategory = await category.save();
       res.send(201);

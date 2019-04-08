@@ -1,17 +1,17 @@
-import { REQUEST_PROJECT_CATEGORY, SUCCESS_PROJECT_CATEGORY, FAILURE_PROJECT_CATEGORY } from '../actions/types';
+import * as actionTypes from '../actions/types';
 
 const initialState = {
   categories: {
-    categoriesList: [],
-    successMessage: '',
-    error: null
+    categoriesList: {
+      data: []
+    }
   }
 }
 export default function(state = initialState, action) {
   switch(action.type) {
-    case REQUEST_PROJECT_CATEGORY:
-      return { ...state, isPending: true }
-    case SUCCESS_PROJECT_CATEGORY:
+    case actionTypes.REQUEST_PROJECT_CATEGORY:
+      return { ...state, categories: { ...state.categories, isPending: true }}
+    case actionTypes.SUCCESS_PROJECT_CATEGORY:
       return {
         ...state, 
         categories: {
@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
           successMessage: action.payload 
         } 
       }
-    case FAILURE_PROJECT_CATEGORY:
+    case actionTypes.FAILURE_PROJECT_CATEGORY:
       return { ...state, 
         categories: {
         ...state.categories,
@@ -28,6 +28,12 @@ export default function(state = initialState, action) {
         error: action.payload
       } 
     }
+    case actionTypes.REQUEST_GET_PROJECT_CATEGORIES:
+      return {...state, categories:{...state.categories, categoriesList: {...state.categories.categoriesList, isPending: true}}}
+    case actionTypes.SUCCESS_GET_PROJECT_CATEGORIES:
+      return {...state, categories:{...state.categories, categoriesList: {...state.categories.categoriesList, data: action.payload, isPending: false}}}
+      case actionTypes.FAILURE_GET_PROJECT_CATEGORIES:
+      return {...state, categories:{...state.categories, categoriesList: {...state.categories.categoriesList, error: true, isPending: false}}}
     default: 
         return state
   }

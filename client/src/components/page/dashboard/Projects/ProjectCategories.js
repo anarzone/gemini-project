@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import { FormattedMessage } from 'react-intl';
+import { withLang } from '../../../../Hoc/withLang';
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Tabs from "@material-ui/core/Tabs";
@@ -10,7 +12,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-
+import IconButton from "@material-ui/core/IconButton";
+import Edit from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 import AddCategory from "../../../../containers/Admin/Dashboard/Projects/AddCategory";
 
 import styles from "./projects.module.css";
@@ -85,57 +89,37 @@ class ProjectCategories extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, categories } = this.props;
     const { tabValue, data, openCategoryPopup } = this.state;
     return (
       <Card className={styles.myCard}>
         <div className={styles.tableHeading}>
           <h2 className={styles.title}>Kateqoriyalar</h2>
-          {/*<Tabs
-            value={tabValue}
-            onChange={this.handleChange}
-            classes={{
-              root: classes.tabsRoot,
-              indicator: classes.tabsIndicator
-            }}
-          >
-            <Tab
-              disableRipple
-              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-              label="AZE"
-            />
-            <Tab
-              disableRipple
-              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-              label="ENG"
-            />
-            <Tab
-              disableRipple
-              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-              label="RUS"
-            />
-          </Tabs>*/}
           <AddCategory />
         </div>
         <Paper className={styles.root}>
           <Table className={styles.table}>
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell align="right">Kategoriya adı</TableCell>
-                <TableCell align="right">Banner şəkli</TableCell>
-                <TableCell align="right">Tənzimləmələr</TableCell>
+                <TableCell align="left">Kategoriya adı</TableCell>
+                <TableCell align="left">Banner şəkli</TableCell>
+                <TableCell align="left">Tənzimləmələr</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row, index) => (
+              {categories.map((category, index) => (
                 <TableRow key={index}>
-                  <TableCell component="th" scope="row">
-                    {tabValue === 0 ? row.title.az : row.title.en}
+  
+                  <TableCell align="left">{category.name[this.props.lang]}</TableCell>
+                  <TableCell align="left">{category.bannerImage}</TableCell>
+                  <TableCell align="left">
+                  <IconButton aria-label="Delete">
+                      <Edit />
+                  </IconButton>
+                  <IconButton aria-label="Delete">
+                    <DeleteIcon style={{ color: "#f50057" }} />
+                  </IconButton>
                   </TableCell>
-                  <TableCell align="right">{row.title.az}</TableCell>
-                  <TableCell align="right">{row.title.az}</TableCell>
-                  <TableCell align="right">Delete || Edit</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -146,4 +130,4 @@ class ProjectCategories extends Component {
   }
 }
 
-export default withStyles(inlineStyle)(ProjectCategories);
+export default withStyles(inlineStyle)(withLang(ProjectCategories));

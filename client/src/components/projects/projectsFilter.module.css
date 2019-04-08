@@ -1,6 +1,7 @@
 .root {
   width: 100%;
   background-color: white;
+  padding-top: 75px;
 }
 
 .bar {

@@ -31,11 +31,11 @@ class Header extends Component {
 
   render() {
     return (
-      <header className={this.headerClass()}>
+      <header className={this.headerClass()} style={{position: `${this.props.positionFixed ? 'fixed' : 'absolute'}` }}>
         <Link
           to="/"
           className={styles.logo}
-          style={{ zIndex: `${this.state.showSearchBar ? "1000" : "initial"}` }}
+          style={{ zIndex: `${this.state.showSearchBar ? "1000" : "initial"}`}}
         >
           <img src="/assets/images/main-logo.png" alt="Logo" />
         </Link>

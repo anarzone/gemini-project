@@ -1,6 +1,5 @@
 .root {
   height: 74px;
-  position: fixed;
   transition: background-color 0.6s;
   width: 100%;
   z-index: 1000;

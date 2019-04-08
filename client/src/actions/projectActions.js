@@ -1,11 +1,11 @@
 import { apiURL } from '../axios';
-import { REQUEST_PROJECT_CATEGORY, SUCCESS_PROJECT_CATEGORY, FAILURE_PROJECT_CATEGORY } from './types';
+import * as actionTypes from './types';
 
 // Add new category for the project
 export function addProjectCategory(data) {
   return async dispatch => {
     try {
-      dispatch({type: REQUEST_PROJECT_CATEGORY})
+      dispatch({type: actionTypes.REQUEST_PROJECT_CATEGORY})
       const config = { 
         headers: { 
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -14,19 +14,23 @@ export function addProjectCategory(data) {
       };
       const request = await apiURL.post('/projects/categories', data, config)
       if(request.status === 201) {
-        dispatch({type: SUCCESS_PROJECT_CATEGORY, payload: 'Yeni kateqoriya ugurla əlavə edildi!'})
+        dispatch({type: actionTypes.SUCCESS_PROJECT_CATEGORY, payload: 'Yeni kateqoriya ugurla əlavə edildi!'})
       }
     } catch (err) {
-      dispatch({type: FAILURE_PROJECT_CATEGORY, payload: err.message, error: true})
+      dispatch({type: actionTypes.FAILURE_PROJECT_CATEGORY, payload: err.message, error: true})
     }
   };
 }
 
 // Get all categories of the projects
 export function getProjectCategories() {
-  try {
-
-  } catch(err) {
-    console.log(err)
+  return async dispatch => {
+    try {
+      dispatch({type: actionTypes.REQUEST_GET_PROJECT_CATEGORIES})
+      const request = await apiURL.get('/projects/categories');
+      dispatch({type: actionTypes.SUCCESS_GET_PROJECT_CATEGORIES, payload: request.data})
+    } catch(err) {
+      dispatch({type: actionTypes.FAILURE_GET_PROJECT_CATEGORIES, payload: console.log(err)})
+    }
   }
 }

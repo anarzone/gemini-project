@@ -1,13 +1,20 @@
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-
+import { connect } from 'react-redux';
+import { IntlProvider } from 'react-intl';
+import {getProjectCategories} from '../../../../actions/projectActions';
 import ProjectCategories from "../../../../components/page/dashboard/Projects/ProjectCategories";
 import ProjectList from "../../../../components/page/dashboard/Projects/ProjectList";
+import projectMessages from './projectMessages';
 
 class Projects extends Component {
   state = {
-    rows: []
+    rows: [],
+    categories: []
   };
+
+  componentDidMount = async () => {
+    this.props.dispatch(getProjectCategories());
+  }
 
   createData = (name, calories, fat, carbs, protein) => {
     let id = 0;
@@ -15,10 +22,11 @@ class Projects extends Component {
     return { id, name, calories, fat, carbs, protein };
   };
 
+
   render() {
     return (
       <Fragment>
-        <ProjectCategories />
+        <ProjectCategories categories={this.props.categories.data} />
         <ProjectList
           rows={[
             this.createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
@@ -33,4 +41,11 @@ class Projects extends Component {
   }
 }
 
-export default Projects;
+const mapStateToProps = state => {
+  return {
+    categories: state.projects.categories.categoriesList,
+    lang: state.locale.lang
+  }
+}
+
+export default connect(mapStateToProps)(Projects);

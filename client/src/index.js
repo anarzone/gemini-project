@@ -1,10 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { addLocaleData } from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import az from 'react-intl/locale-data/az';
+import ru from 'react-intl/locale-data/ru';
 import jwt_decode from "jwt-decode";
+import { localeSet } from './actions/localeActions';
 import { setCurrentUser, logoutUser } from "./actions/authActions";
-import Routes from "./routes/routes";
+import App from "./App";
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
 /* Vendor style files import here */
@@ -14,6 +18,10 @@ import "../node_modules/slick-carousel/slick/slick-theme.css";
 import "./assets/styles/vendorOverride.css";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+
+addLocaleData(az);
+addLocaleData(en);
+addLocaleData(ru);
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -36,15 +44,17 @@ if (localStorage.jwtToken) {
   }
 }
 
-const App = () => (
-  <Provider store={store}>
-    <Router>
-      <Routes />
-    </Router>
-  </Provider>
-);
+if(localStorage.geminiLang) {
+  store.dispatch(localeSet(localStorage.geminiLang))
+}
 
-ReactDOM.render(<App />, document.getElementById("root"));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, 
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

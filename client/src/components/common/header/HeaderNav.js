@@ -16,13 +16,13 @@ const Nav = ({ showedSearchBar, whiteHeader }) => {
         }
       >
         <li>
-          <Link to="/">About</Link>
+          <Link to="/about">About</Link>
         </li>
         <li>
           <Link to="/projects">Projects</Link>
         </li>
         <li>
-          <Link to="/">Expertise</Link>
+          <Link to="/expertises">Expertise</Link>
         </li>
         <li>
           <Link to="/">Contact</Link>
