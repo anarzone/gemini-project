@@ -3,16 +3,16 @@
 }
 
 .title h2 {
-  margin: 0;
-  font-size: 16px;
+  margin-top: 10px;
+  font-size: 22px;
   line-height: 22px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.85);
 }
 
 .content label {
-  font-size: 14px !important;
-  color: #595959;
+  font-size: 16px !important;
+  color: #5d5d5d;
   font-weight: 500;
   padding: 0;
   margin: 0 0 8px;

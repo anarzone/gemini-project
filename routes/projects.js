@@ -21,6 +21,14 @@ module.exports = server => {
 
   // Create new project
   server.post("/projects", async (req, res, next) => {
+
+
+        let imageLocation = [];
+        for (const file of req.files) {
+          imageLocation.concat(`${__dirname}/../client/public/assets/images/${file.name}`)
+        }
+
+
     // Upload file to client folder
     for (var key in req.files) {
       if (req.files.hasOwnProperty(key)) {
@@ -30,38 +38,31 @@ module.exports = server => {
         );
       }
     }
-    if (!req.files.projectImage) {
+    if (!req.files) {
       return next(new errors.InvalidContentError("Project image is required"));
     }
-    const { title, content, cat_id } = req.body;
-    let project;
+    const name = JSON.parse(req.body.name);
+    const content = JSON.parse(req.body.content);
+    let project = new Project();
     // Find category by id to add new project
-    await ProjectCategory.findOne({ _id: cat_id }, (err, category) => {
-      if (err) throw console.log(err);
-      if (!category) {
-        return next(
-          res.send(
-            new errors.NotFoundError("There is no any category with this id")
-          )
-        );
-      } else {
-        project = new Project({
-          title: {
-            az: title.az,
-            en: title.en,
-            ru: title.ru
-          },
-          content: {
-            az: content.az,
-            en: content.en,
-            ru: content.ru
-          },
-          projectImage: `${config.URL}/${req.files.projectImage.name}`,
-          category
-        });
-      }
-    });
-
+    ProjectCategory.findOne({ _id: req.body.cat_id })
+      .then(category => {
+        project.name = {
+          az: name.az,
+          en: name.en,
+          ru: name.ru
+        }
+        project.content = {
+          az: content.az,
+          en: content.en,
+          ru: content.ru
+        }
+        project.category = category
+        project.projectImages = imageLocation
+      })
+      .catch(err => {
+        return next(res.send( new errors.NotFoundError(err)))
+      })
     try {
       await project.save();
       res.send(201);

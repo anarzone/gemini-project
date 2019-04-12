@@ -42,5 +42,6 @@ db.on("error", err => console.log(err));
 db.once("open", () => {
   require("./routes/admin")(server);
   require("./routes/projects")(server);
+  require("./routes/slider")(server);
   console.log(`SERVER STARTED ON PORT ${config.PORT}`);
 });

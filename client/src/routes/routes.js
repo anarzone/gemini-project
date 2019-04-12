@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-
 import PrivateRoute from "./PrivateRoute";
 
 // COMPONENTS
@@ -9,6 +8,7 @@ import ProjectsPage from "../components/page/projects/Projects";
 import Expertises from "../components/page/expertises/Expertises";
 import ExpertiseDetail from "../components/page/expertises/ExpertiseDetail";
 import About from "../components/page/about/About";
+import Contact from "../components/page/contact/Contact";
 // DASHBOARD
 import AdminLogin from "../containers/Admin/AdminLogin";
 import Projects from "../containers/Admin/Dashboard/Projects/Projects";
@@ -20,7 +20,7 @@ const Routes = () => (
     <Route path="/projects" exact component={ProjectsPage} />
     <Route path="/expertises" exact component={Expertises} />
     <Route path="/expertises/detail" exact component={ExpertiseDetail} />
-
+    <Route path="/contact" exact component={Contact} />
 
     <Route path="/admin" component={AdminLogin} />
     <Switch>

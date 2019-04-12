@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Zoom } from "react-reveal";
-import Header from "../../common/header/Header";
+import LandingLayout from '../../common/layout/LandingLayout';
 import Card from "../../common/card/Card";
 
 import styles from './expertises.module.css';
@@ -44,8 +44,7 @@ class Expertises extends Component {
 
   render() {
     return (
-      <Fragment>
-        <Header positionFixed={false} />
+      <LandingLayout headerPosition={false}>
         <div className={styles.banner}>
           <img src="/assets/images/project-1.jpg" alt="Ex"/>
         </div>
@@ -63,7 +62,7 @@ class Expertises extends Component {
             </Grid>
           ))}
         </Grid>
-      </Fragment>
+      </LandingLayout>
     );
   }
 }

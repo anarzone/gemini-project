@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import styles from './formDialog.module.css';
 
-const FormDialog = ({ open, onClose, children, onSubmitForm, isLoading }) => {
+const FormDialog = ({ open, onClose, children, onSubmitForm, isLoading, title }) => {
   return (
     <div className={styles.root}>
       <Dialog
@@ -20,7 +20,7 @@ const FormDialog = ({ open, onClose, children, onSubmitForm, isLoading }) => {
         scroll={'body'}
       >
         <DialogTitle id='form-dialog-title' className={styles.title}>
-          Yeni Kategoriya əlavə et
+          {title}
         </DialogTitle>
         <DialogContent className={styles.content}>{children}</DialogContent>
         <DialogActions>

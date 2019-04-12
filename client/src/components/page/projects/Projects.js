@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Zoom } from "react-reveal";
+import LandingLayout from '../../common/layout/LandingLayout';
 import Header from "../../common/header/Header";
 import Card from "../../common/card/Card";
 import CategoryFilter from "../../projects/CategoryFilter";
@@ -43,8 +44,7 @@ class Projects extends Component {
 
   render() {
     return (
-      <Fragment>
-        <Header headerStyle="whiteBg" />
+      <LandingLayout headerType="whiteBg">
         <CategoryFilter />
         <Grid container>
           {this.state.projects.map((project, index) => (
@@ -55,7 +55,7 @@ class Projects extends Component {
             </Grid>
           ))}
         </Grid>
-      </Fragment>
+      </LandingLayout>
     );
   }
 }

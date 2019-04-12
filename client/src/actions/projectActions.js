@@ -34,3 +34,25 @@ export function getProjectCategories() {
     }
   }
 }
+
+export function addProject(data) {
+  console.log('DATAATA', data)
+  return async dispatch => {
+    try {
+      dispatch({type: actionTypes.REQUEST_ADD_PROJECT})
+      const config = { 
+        headers: { 
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+        } 
+      };
+      const request = await apiURL.post('/projects', data, config)
+      if(request.status === 201) {
+        dispatch({type: actionTypes.SUCCESS_ADD_PROJECT, payload: console.log(request.status)})
+      }
+    } catch (err) {
+      dispatch({type: actionTypes.FAILURE_ADD_PROJECT, payload: err.message, error: true})
+    }
+  }
+  
+}

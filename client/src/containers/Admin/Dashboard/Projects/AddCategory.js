@@ -148,13 +148,13 @@ class AddCategory extends Component {
           onClick={this.handleClickOpen}
         >
           <Add />
-          Yeni kateqoriya əlavə et
         </Button>
         <FormDialog
           open={openDialog}
           onClose={this.handleCloseDialog}
           onSubmitForm={e => this.onSubmitFormHandler(e)}
           isLoading={this.props.categories.isPending}
+          title="Yeni kategoriya elave et"
         >
           <TextField
             margin='dense'

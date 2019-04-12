@@ -3,19 +3,17 @@ const timestamp = require("mongoose-timestamp");
 const mongooseIntl = require("mongoose-intl");
 
 const ProjectSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
-    required: true,
     trim: true,
     intl: true
   },
   content: {
     type: String,
-    required: true,
     intl: true
   },
-  projectImage: {
-    type: String,
+  projectImages: {
+    type: Array,
     required: true
   },
   category: {

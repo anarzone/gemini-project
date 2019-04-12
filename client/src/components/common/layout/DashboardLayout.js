@@ -16,7 +16,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from '@material-ui/core/Button';
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import DasboardMenuItems from "../../../components/page/dashboard/DasboardMenuItems";
+import DasboardMenuItems from "../../page/dashboard/DasboardMenuItems";
 // import SimpleLineChart from "./SimpleLineChart";
 // import SimpleTable from "./SimpleTable";
 
