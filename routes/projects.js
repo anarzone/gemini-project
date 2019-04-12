@@ -11,9 +11,9 @@ module.exports = server => {
   // Get all projects
   server.get("/projects", async (req, res, next) => {
     const projects = await Project.find({});
+    next();
     try {
       res.send(projects);
-      next();
     } catch (err) {
       return next(new errors.InvalidContentError(err));
     }
@@ -22,24 +22,20 @@ module.exports = server => {
   // Create new project
   server.post("/projects", async (req, res, next) => {
 
-
-        let imageLocation = [];
-        for (const file of req.files) {
-          imageLocation.concat(`${__dirname}/../client/public/assets/images/${file.name}`)
-        }
-
-
-    // Upload file to client folder
-    for (var key in req.files) {
-      if (req.files.hasOwnProperty(key)) {
-        fs.renameSync(
-          req.files[key].path,
-          `${__dirname}/../client/public/assets/images/${req.files[key].name}`
-        );
-      }
-    }
+    let imageLocation = [];
     if (!req.files) {
       return next(new errors.InvalidContentError("Project image is required"));
+    } else {
+      // Upload file to client folder
+      for (var key in req.files) {
+        if (req.files.hasOwnProperty(key)) {
+          fs.renameSync(
+            req.files[key].path,
+            `${__dirname}/../client/public/assets/images/projects/${req.files[key].name}`
+          );
+          imageLocation.push(`${req.files[key].name}`)
+        }
+      }
     }
     const name = JSON.parse(req.body.name);
     const content = JSON.parse(req.body.content);
