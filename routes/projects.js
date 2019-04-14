@@ -20,7 +20,7 @@ module.exports = server => {
   });
 
   // Create new project
-  server.post("/projects", async (req, res, next) => {
+  server.post("/projects/:id", async (req, res, next) => {
 
     let imageLocation = [];
     if (!req.files) {
@@ -39,26 +39,26 @@ module.exports = server => {
     }
     const name = JSON.parse(req.body.name);
     const content = JSON.parse(req.body.content);
-    let project = new Project();
+    const cat_id = req.params.id;
+    let project = new Project({});
     // Find category by id to add new project
-    ProjectCategory.findOne({ _id: req.body.cat_id })
-      .then(category => {
-        project.name = {
-          az: name.az,
-          en: name.en,
-          ru: name.ru
-        }
-        project.content = {
-          az: content.az,
-          en: content.en,
-          ru: content.ru
-        }
-        project.category = category
-        project.projectImages = imageLocation
-      })
-      .catch(err => {
+    await ProjectCategory.findById(cat_id, function(err, category){
+      if(err) {
         return next(res.send( new errors.NotFoundError(err)))
-      })
+      }  
+      project.category = category;
+    })
+    project.name = {
+      az: name.az,
+      en: name.en,
+      ru: name.ru
+    }
+    project.content = {
+      az: content.az,
+      en: content.en,
+      ru: content.ru
+    }
+    project.projectImages = imageLocation
     try {
       await project.save();
       res.send(201);
@@ -67,6 +67,38 @@ module.exports = server => {
       return next(new errors.InvalidContentError(err));
     }
   });
+
+  // Get project by id, nameLang, contentLang
+  server.get("/projects/:id/:nameLang/:contentLang", async(req, res, next) => {
+    const { id, nameLang, contentLang } = req.params;
+    await Project.findById(id, function(err, project){
+      let name = '';
+      let content = '';
+      if(err) {
+        return next(new errors.InvalidContentError(err));
+      }
+      if(project.get(`name.${nameLang}`) && project.get(`content.${contentLang}`)) {
+        name = project.get(`name.${nameLang}`)
+        content = project.get(`content.${contentLang}`)
+      } else {
+        return next(new errors.InvalidContentError('Lang is not defined'));
+      }
+      try {
+        res.json({ 
+          _id: project._id, 
+          name,
+          content,
+          projectImages: project.projectImages,
+        })
+        next()
+      } catch(err) {
+        return next(new errors.InvalidContentError(err));
+      }
+    });
+
+  })
+
+
 
   // Add new categories for the projects
   server.post("/projects/categories", async (req, res, next) => {
@@ -110,4 +142,5 @@ module.exports = server => {
       return next(new errors.InvalidContentError(err.message));
     }
   });
+
 };

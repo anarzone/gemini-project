@@ -17,6 +17,8 @@ const FormDialog = ({ open, onClose, children, onSubmitForm, isLoading, title })
         onClose={onClose}
         aria-labelledby='form-dialog-title'
         className={styles.dialog}
+        fullWidth={true}
+        maxWidth="md"
         scroll={'body'}
       >
         <DialogTitle id='form-dialog-title' className={styles.title}>

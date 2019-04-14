@@ -3,25 +3,24 @@ import * as actionTypes from '../actions/types';
 const initialState = {
   list: []
 }
-
 export default function(state = initialState, action) {
   switch(action.type) {
-    // Add new project
-    case actionTypes.REQUEST_ADD_PROJECT:
+    // Add new category
+    case actionTypes.REQUEST_ADD_PROJECT_CATEGORY:
       return { ...state, isPending: true }
-    case actionTypes.SUCCESS_ADD_PROJECT:
+    case actionTypes.SUCCESS_ADD_PROJECT_CATEGORY:
       return { ...state, isPending: false, success: action.payload }
-    case actionTypes.FAILURE_ADD_PROJECT:
+    case actionTypes.FAILURE_ADD_PROJECT_CATEGORY:
       return { ...state, isPending: false, error: action.payload }
-    
-    // Get all projects
-    case actionTypes.REQUEST_GET_ALL_PROJECTS:
+
+    // Get all categories
+    case actionTypes.REQUEST_GET_PROJECT_CATEGORIES:
       return { ...state, isPending: true }
-    case actionTypes.SUCCESS_GET_ALL_PROJECTS:
+    case actionTypes.SUCCESS_GET_PROJECT_CATEGORIES:
       return { ...state, isPending: false, list: action.payload  }
-    case actionTypes.FAILURE_GET_ALL_PROJECTS:
+    case actionTypes.FAILURE_GET_PROJECT_CATEGORIES:
       return { ...state, isPending: false, error: action.payload }
-    default:
-      return state;
+    default: 
+        return state
   }
 }

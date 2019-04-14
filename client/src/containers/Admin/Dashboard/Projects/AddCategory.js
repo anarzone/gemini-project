@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { addProjectCategory } from '../../../../actions/projectActions';
+import ImagePreview from '../../../../components/widgets/UploadFile/ImagePreview';
 import isEmpty from '../../../../validation/is-empty';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -27,8 +28,12 @@ class AddCategory extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.categories.successMessage && nextProps.categories.successMessage !== '') {
-      this.setState({success: true, openSnackBar: true, responseMessage: nextProps.categories.successMessage})
+    if(nextProps.categories.success) {
+      this.setState({
+        success: true, 
+        openSnackBar: true, 
+        responseMessage: nextProps.categories.success.message
+      })
     } 
   }
 
@@ -57,6 +62,12 @@ class AddCategory extends Component {
     console.log(event.target.files[0])
     this.setState({ selectedImage: event.target.files[0] });
   };
+
+  deleteSelectedImage = () => {
+    this.setState({
+      selectedImage: null
+    })
+  }
 
   onSubmitFormHandler = e => {
     e.preventDefault();
@@ -94,36 +105,7 @@ class AddCategory extends Component {
     } = this.state;
     const { az, en, ru } = name;
 
-    const contentImageUpload = () => {
-      switch (true) {
-        case uploading:
-          return 'Yuklenir...';
-        case selectedImage !== null:
-          return selectedImage.name;
-        default:
-          return (
-            <Fragment>
-              <input
-                accept='image/*'
-                id='contained-button-file'
-                multiple
-                type='file'
-                style={{ display: 'none' }}
-                onChange={this.fileChangedHandler}
-              />
-              <label htmlFor='contained-button-file'>
-                <Button variant='contained' component='span'>
-                  Şəkil yüklə
-                  <CloudUploadIcon style={{ paddingLeft: '4px' }} />
-                </Button>
-                <span style={{ marginLeft: '6px' }}>
-                  Kateqoriya üçün yalnız bir şəkil seçə bilərsiniz!
-                </span>
-              </label>
-            </Fragment>
-          );
-      }
-    };
+    
     console.log(this.props.categories)
     return (
       <div>
@@ -165,6 +147,7 @@ class AddCategory extends Component {
             onChange={this.handleChange('az')}
             fullWidth
             style={{ marginTop: 22 }}
+            variant="outlined"
           />
           <TextField
             margin='dense'
@@ -175,6 +158,7 @@ class AddCategory extends Component {
             onChange={this.handleChange('en')}
             fullWidth
             style={{ marginTop: 22 }}
+            variant="outlined"
           />
           <TextField
             margin='dense'
@@ -185,9 +169,29 @@ class AddCategory extends Component {
             onChange={this.handleChange('ru')}
             fullWidth
             style={{ marginTop: 22, marginBottom: 22 }}
+            variant="outlined"
           />
           
-          {contentImageUpload()}
+          <div style={{display: 'flex', alignItems: 'center'}}>
+              <input
+                accept='image/*'
+                id='contained-button-file'
+                multiple
+                type='file'
+                style={{ display: 'none' }}
+                onChange={this.fileChangedHandler}
+              />
+              <label htmlFor='contained-button-file'>
+                <Button variant='contained' component='span'>
+                  Şəkil yüklə
+                  <CloudUploadIcon style={{ paddingLeft: '4px' }} />
+                </Button>
+                <span style={{ marginLeft: '6px' }}>
+                  Kateqoriya üçün yalnız bir şəkil seçmə imkanınız var.
+                </span>
+              </label>
+            </div>
+            {selectedImage && <ImagePreview file={selectedImage} onDelete={() => this.deleteSelectedImage()}  />}
         </FormDialog>
       </div>
     );
@@ -196,7 +200,7 @@ class AddCategory extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.projects.categories
+    categories: state.projectCategories,
   };
 };
 

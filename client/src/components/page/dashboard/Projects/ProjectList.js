@@ -1,5 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { withLang } from '../../../../Hoc/withLang';
+import Moment from 'react-moment';
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,13 +16,18 @@ import AddProject from "../../../../containers/Admin/Dashboard/Projects/AddProje
 import styles from "./projects.module.css";
 
 function ProjectList(props) {
-  const { rows } = props;
-
+  const { projects, lang } = props;
+  const truncate = (string) => {
+    if (string.length > 100)
+       return string.substring(0,100)+'...';
+    else
+       return string;
+ };
   return (
     <Card className={styles.myCard}>
       <div className={styles.tableHeading}>
         <h2 className={styles.title}>Proyektlər</h2>
-        <AddProject />
+        <AddProject categories={props.categories} />
       </div>
       <Paper className={styles.root}>
         <Table className={styles.table}>
@@ -35,12 +41,12 @@ function ProjectList(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
+            {projects.map((project, index) => (
               <TableRow key={index}>
-                <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{project.name[lang]}</TableCell>
+                <TableCell align="left">{truncate(project.content[lang])}</TableCell>
+                <TableCell align="left"><Moment date={project.createdAt} format="YYYY/MM/DD" /></TableCell>
+                <TableCell align="left">{`${project.projectImages.length} şəkil`}</TableCell>
                 <TableCell align="right">
                   <IconButton aria-label="Delete">
                     <Edit />
@@ -58,4 +64,4 @@ function ProjectList(props) {
   );
 }
 
-export default ProjectList;
+export default withLang(ProjectList);

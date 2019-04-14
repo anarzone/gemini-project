@@ -17,7 +17,8 @@ const ProjectSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: Object
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ProjectCategory'
   }
 });
 

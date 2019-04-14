@@ -113,7 +113,7 @@ class ProjectCategories extends Component {
                   <TableCell align="left">{category.name[this.props.lang]}</TableCell>
                   <TableCell align="left">{category.bannerImage}</TableCell>
                   <TableCell align="left">
-                  <IconButton aria-label="Delete">
+                  <IconButton aria-label="edit" onClick={() => {console.log('EDit button clicked')}}>
                       <Edit />
                   </IconButton>
                   <IconButton aria-label="Delete">
