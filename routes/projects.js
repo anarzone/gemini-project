@@ -1,5 +1,6 @@
 const errors = require("restify-errors");
 const mongoose = require("mongoose");
+const rjwt = require('restify-jwt-community');
 const fs = require("fs");
 const config = require("../config");
 
@@ -20,7 +21,7 @@ module.exports = server => {
   });
 
   // Create new project
-  server.post("/projects/:id", async (req, res, next) => {
+  server.post("/projects/:id", rjwt({ secret: config.JWT_SECRET }), async (req, res, next) => {
 
     let imageLocation = [];
     if (!req.files) {
@@ -31,7 +32,7 @@ module.exports = server => {
         if (req.files.hasOwnProperty(key)) {
           fs.renameSync(
             req.files[key].path,
-            `${__dirname}/../client/public/assets/images/projects/${req.files[key].name}`
+            `${__dirname}/../client/public/assets/images/${req.files[key].name}`
           );
           imageLocation.push(`${req.files[key].name}`)
         }
@@ -46,7 +47,7 @@ module.exports = server => {
       if(err) {
         return next(res.send( new errors.NotFoundError(err)))
       }  
-      project.category = category;
+      project.category = cat_id;
     })
     project.name = {
       az: name.az,
@@ -68,18 +69,18 @@ module.exports = server => {
     }
   });
 
-  // Get project by id, nameLang, contentLang
-  server.get("/projects/:id/:nameLang/:contentLang", async(req, res, next) => {
-    const { id, nameLang, contentLang } = req.params;
+  // Get project by id and lang parametres
+  server.get("/projects/:id/:lang", async(req, res, next) => {
+    const { id, lang} = req.params;
     await Project.findById(id, function(err, project){
       let name = '';
       let content = '';
       if(err) {
         return next(new errors.InvalidContentError(err));
       }
-      if(project.get(`name.${nameLang}`) && project.get(`content.${contentLang}`)) {
-        name = project.get(`name.${nameLang}`)
-        content = project.get(`content.${contentLang}`)
+      if(project.get(`name.${lang}`) && project.get(`content.${lang}`)) {
+        name = project.get(`name.${lang}`)
+        content = project.get(`content.${lang}`)
       } else {
         return next(new errors.InvalidContentError('Lang is not defined'));
       }
@@ -96,12 +97,63 @@ module.exports = server => {
       }
     });
 
-  })
+  });
+
+  // Get project by category id
+  server.get("/projects/types/:id", async(req, res, next) => {
+    const { id } = req.params;
+    const project = await Project.find({category: mongoose.Types.ObjectId(id)}, function(err, project){
+      if(err) {
+        return next(new errors.NotFoundError(err));
+      }
+
+      try {
+        res.json(project)
+        next()
+      } catch(err) {
+        return next(new errors.InvalidContentError(err));
+      }
+    })
+  });
+
+  // Get project by projectId
+  server.get("/projects/:id", async(req, res, next) => {
+    const { id } = req.params;
+    await Project.findById(id, function(err, project){
+      if(err) {
+        return next(new errors.NotFoundError(err));
+      }
+      try {
+        res.json(project)
+        next()
+      } catch(err) {
+        return next(new errors.InvalidContentError(err));
+      }
+    });
+
+  });
+
+  // Remove project by projectId
+  server.del("/projects/:id", rjwt({ secret: config.JWT_SECRET }), async(req, res, next) => {
+    try {
+      const project = await Project.findOneAndRemove({
+        _id: req.params.id
+      });
+      res.send(204);
+      next();
+    } catch(err) {
+      return next(
+        new errors.ResourceNotFoundError(
+          `There is no project with the id of ${req.params.id}`
+        )
+      );
+    }
+  });
 
 
 
   // Add new categories for the projects
-  server.post("/projects/categories", async (req, res, next) => {
+  server.post("/projects/categories", rjwt({ secret: config.JWT_SECRET }), async (req, res, next) => {
     const name = JSON.parse(req.body.name);
     
     // Upload file to client folder
@@ -109,7 +161,7 @@ module.exports = server => {
       if (req.files.hasOwnProperty(key)) {
         fs.renameSync(
           req.files[key].path,
-          `${__dirname}/../client/public/assets/images/projects/${req.files[key].name}`
+          `${__dirname}/../client/public/assets/images/${req.files[key].name}`
         );
       }
     }
@@ -140,6 +192,72 @@ module.exports = server => {
       next();
     } catch (err) {
       return next(new errors.InvalidContentError(err.message));
+    }
+  });
+
+  // Get category by id and lang parametres
+  server.get("/projects/categories/:id/:lang", async(req, res, next) => {
+    const { id, lang } = req.params;
+    await ProjectCategory.findById(id, function(err, category){
+      let name = '';
+      if(err) {
+        return next(new errors.InvalidContentError(err));
+      }
+      if(category.get(`name.${lang}`)) {
+        name = category.get(`name.${lang}`)
+      } else {
+        return next(new errors.InvalidContentError('Lang is not defined'));
+      }
+      try {
+        res.json({ 
+          _id: category._id, 
+          name,
+          bannerImage: category.bannerImage,
+        })
+        next()
+      } catch(err) {
+        return next(new errors.InvalidContentError(err));
+      }
+    });
+
+  });
+
+  // Update category by id and lang parametres
+  server.put("/projects/categories/:id/:lang", rjwt({ secret: config.JWT_SECRET }), async(req, res, next) => {
+    try {
+      const category = await ProjectCategory.findOneAndUpdate(
+        req.params.id,
+        (err, doc) => {
+          const { lang } = req.params;
+          const { name } = JSON.parse(req.body);
+          doc.set(`name.${lang}`, name)
+        }
+      );
+      res.json({category});
+      next();
+    } catch (err) {
+      return next(
+        new errors.ResourceNotFoundError(
+          `There is no category with the id of ${req.params.id}`
+        )
+      );
+    }
+  })
+
+  // Remove category of the project by categoryId
+  server.del("/projects/categories/:id", rjwt({ secret: config.JWT_SECRET }), async(req, res, next) => {
+    try {
+      const category = await ProjectCategory.findOneAndRemove({
+        _id: req.params.id
+      });
+      res.send(204);
+      next();
+    } catch(err) {
+      return next(
+        new errors.ResourceNotFoundError(
+          `There is no category with the id of ${req.params.id}`
+        )
+      );
     }
   });
 

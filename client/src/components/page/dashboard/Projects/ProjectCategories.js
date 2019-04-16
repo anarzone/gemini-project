@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { getSelectedCategory } from '../../../../actions/projectActions';
 import { withLang } from '../../../../Hoc/withLang';
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -16,6 +18,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Edit from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddCategory from "../../../../containers/Admin/Dashboard/Projects/AddCategory";
+import EditCategory from "../../../../containers/Admin/Dashboard/Projects/EditCategory";
 
 import styles from "./projects.module.css";
 
@@ -81,22 +84,38 @@ class ProjectCategories extends Component {
         }
       }
     ],
-    openCategoryPopup: false
+    openCategoryPopup: false,
+    openEditCategory: false
   };
 
   handleChange = (event, tabValue) => {
     this.setState({ tabValue });
   };
 
+  openEditCategory = (categoryId, lang) => {
+    this.props.dispatch(getSelectedCategory(categoryId, lang))
+    this.setState({
+      openEditCategory: true
+    })
+
+  }
+
+  closeEditCategory = () => {
+    this.setState({
+      openEditCategory: false
+    })
+  }
+
   render() {
     const { classes, categories } = this.props;
-    const { tabValue, data, openCategoryPopup } = this.state;
+    const { tabValue, data, openCategoryPopup, openEditCategory } = this.state;
     return (
       <Card className={styles.myCard}>
         <div className={styles.tableHeading}>
           <h2 className={styles.title}>Kateqoriyalar</h2>
           <AddCategory />
         </div>
+        <EditCategory openDialog={openEditCategory} handleCloseDialog={this.closeEditCategory} selectedCategory={this.props.selectedCategory} />
         <Paper className={styles.root}>
           <Table className={styles.table}>
             <TableHead>
@@ -113,7 +132,7 @@ class ProjectCategories extends Component {
                   <TableCell align="left">{category.name[this.props.lang]}</TableCell>
                   <TableCell align="left">{category.bannerImage}</TableCell>
                   <TableCell align="left">
-                  <IconButton aria-label="edit" onClick={() => {console.log('EDit button clicked')}}>
+                  <IconButton aria-label="edit" onClick={() => this.openEditCategory(category._id, this.props.lang)}>
                       <Edit />
                   </IconButton>
                   <IconButton aria-label="Delete">
@@ -130,4 +149,10 @@ class ProjectCategories extends Component {
   }
 }
 
-export default withStyles(inlineStyle)(withLang(ProjectCategories));
+const mapStateToProps = state => {
+  return {
+    selectedCategory: state.projectCategories.selectedCategory
+  }
+}
+
+export default connect(mapStateToProps)(withStyles(inlineStyle)(withLang(ProjectCategories)));

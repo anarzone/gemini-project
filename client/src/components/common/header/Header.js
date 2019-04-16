@@ -37,7 +37,7 @@ class Header extends Component {
           className={styles.logo}
           style={{ zIndex: `${this.state.showSearchBar ? "1000" : "initial"}`}}
         >
-          <img src="/assets/images/main-logo.png" alt="Logo" />
+          <img src="/assets/images/gemini-logo.png" alt="Logo" />
         </Link>
         <HeaderSearch
           show={this.state.showSearchBar}

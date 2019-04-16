@@ -35,3 +35,83 @@ code {
 .route-wrapper > div {
   position: absolute;
 }
+
+input, textarea {
+  font-size: 16px !important;
+}
+
+.myCard {
+  display: block;
+  width: 100%;
+  height: 383px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 1s ease-in-out;
+}
+
+.myCard:hover .image {
+  transform: scale(1.1);
+}
+
+.myCard .figure {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.myCard .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 2s ease-in-out;
+}
+
+.myCard .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  z-index: 200;
+}
+
+.myCard .headerWrapper {
+  margin: 0 48px 30px;
+}
+
+.myCard .headerSubtitle,
+.myCard .headerTitle {
+  text-shadow: 0.5px 0.1px 2px rgba(0, 0, 0, 0.2);
+  transition: text-shadow 1s;
+}
+
+.myCard .headerSubtitle {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 17px;
+  color: #fff;
+  display: block;
+}
+
+.myCard .headerTitle {
+  font-size: 2.1rem;
+  line-height: 34px;
+  display: block;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.bgOverlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+  position: absolute;
+  z-index: 3;
+}

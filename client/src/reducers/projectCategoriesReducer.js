@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions/types';
 
 const initialState = {
-  list: []
+  list: [],
+  selectedCategory: {}
 }
 export default function(state = initialState, action) {
   switch(action.type) {
@@ -20,7 +21,23 @@ export default function(state = initialState, action) {
       return { ...state, isPending: false, list: action.payload  }
     case actionTypes.FAILURE_GET_PROJECT_CATEGORIES:
       return { ...state, isPending: false, error: action.payload }
+
+    // Get category by id
+    case actionTypes.REQUEST_GET_SELECTED_CATEGORY:
+      return { ...state, isPending: true }
+    case actionTypes.SUCCESS_GET_SELECTED_CATEGORY:
+      return { ...state, isPending: false, selectedCategory: action.payload  }
+    case actionTypes.FAILURE_GET_SELECTED_CATEGORY:
+      return { ...state, isPending: false, error: action.payload }
+
+    // Update selected category
+    case actionTypes.REQUEST_UPDATE_SELECTED_CATEGORY:
+      return { ...state, isPending: true }
+    case actionTypes.SUCCESS_UPDATE_SELECTED_CATEGORY:
+      return { ...state, isPending: false, selectedCategory: action.payload  }
+    case actionTypes.FAILURE_UPDATE_SELECTED_CATEGORY:
+      return { ...state, isPending: false, error: action.payload }
     default: 
-        return state
+      return state
   }
 }

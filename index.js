@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const cors     = require('./cors');
 // const corsMiddleware = require("restify-cors-middleware");
 const config = require("./config");
-// TO PROTECT THE ROUTES
-const rjwt = require("restify-jwt-community");
 
 const server = restify.createServer();
 
@@ -22,9 +20,6 @@ server.get(
     maxAge: 0
   })
 );
-
-// Protect routes
-server.use(rjwt({ secret: config.JWT_SECRET }).unless({ path: ["/auth"] }));
 
 // LISTEN TO THE PORT
 server.listen(config.PORT, () => {

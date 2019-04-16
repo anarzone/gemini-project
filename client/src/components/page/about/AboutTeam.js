@@ -35,7 +35,7 @@ class TeamSection extends React.Component {
             <GridItem xs={12} sm={12} md={4}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src={team1} alt="..." className={imageClasses} />
+                  <img src='/assets/images/team-1.png' alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
                 Lorem Ipsum
@@ -47,7 +47,7 @@ class TeamSection extends React.Component {
             <GridItem xs={12} sm={12} md={4}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src={team2} alt="..." className={imageClasses} />
+                  <img src='/assets/images/team-2.png' alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
                   Lorem Ipsum
@@ -59,7 +59,7 @@ class TeamSection extends React.Component {
             <GridItem xs={12} sm={12} md={4}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src={team3} alt="..." className={imageClasses} />
+                  <img src='/assets/images/team-3.png' alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
                 Lorem Ipsum
@@ -71,7 +71,7 @@ class TeamSection extends React.Component {
             <GridItem xs={12} sm={12} md={4}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src={team2} alt="..." className={imageClasses} />
+                  <img src='/assets/images/team-4.png' alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
                 Lorem Ipsum
@@ -83,19 +83,7 @@ class TeamSection extends React.Component {
             <GridItem xs={12} sm={12} md={4}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src={team1} alt="..." className={imageClasses} />
-                </GridItem>
-                <h4 className={classes.cardTitle}>
-                Lorem Ipsum
-                  <br />
-                  <small className={classes.smallTitle}>Model</small>
-                </h4>
-              </Card>
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <Card plain>
-                <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src={team2} alt="..." className={imageClasses} />
+                  <img src='/assets/images/team-5.png' alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
                 Lorem Ipsum

@@ -6,7 +6,7 @@ import styles from "./card.module.css";
 const Card = ({ project }) => (
   <Link to="/" className={styles.root}>
     <img
-      src={`/assets/images/${project.img}.jpg`}
+      src={`/assets/images/${project.bannerImg}`}
       alt="Project"
       className={styles.image}
     />

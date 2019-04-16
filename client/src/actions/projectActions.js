@@ -50,6 +50,43 @@ export function getProjectCategories() {
   }
 }
 
+// Get category by categoryId and nameLang parameters
+export function getSelectedCategory(id, lang) {
+  return async dispatch => {
+    try {
+      dispatch({type: actionTypes.REQUEST_GET_SELECTED_CATEGORY})
+      const request = await apiURL.get(`/projects/categories/${id}/${lang}`);
+      dispatch({type: actionTypes.SUCCESS_GET_SELECTED_CATEGORY, payload: request.data})
+    } catch(err) {
+      dispatch({
+        type: actionTypes.FAILURE_GET_SELECTED_CATEGORY, 
+        payload: {
+          message: err, 
+          error: true
+        }
+      })
+    }
+  }
+}
+
+// Update category by category id and lang
+export function updateSelectedCategory(id, lang, data) {
+  return async dispatch => {
+    try {
+      dispatch({type: actionTypes.REQUEST_UPDATE_SELECTED_CATEGORY})
+      const request = await apiURL.put(`/projects/categories/${id}/${lang}`, data);
+      dispatch({type: actionTypes.SUCCESS_UPDATE_SELECTED_CATEGORY, payload: request.data})
+    } catch(err) {
+      dispatch({
+        type: actionTypes.FAILURE_UPDATE_SELECTED_CATEGORY, 
+        payload: {
+          message: err, 
+          error: true
+        }
+      })
+    }
+  }
+}
 
 
 // Add new project
@@ -95,6 +132,44 @@ export function getProjects() {
     } catch(err) {
       dispatch({
         type: actionTypes.FAILURE_GET_ALL_PROJECTS, 
+        payload: {
+          message: err, 
+          error: true
+        }
+      })
+    }
+  }
+}
+
+// Find project by the category id
+export function getProjectByCategory(id) {
+  return async dispatch => {
+    try {
+      dispatch({type: actionTypes.REQUEST_GET_PROJECT_BY_CATEGORY})
+      const request = await apiURL.get(`/projects/types/${id}`);
+      dispatch({type: actionTypes.SUCCESS_GET_PROJECT_BY_CATEGORY, payload: request.data})
+    } catch(err) {
+      dispatch({
+        type: actionTypes.FAILURE_GET_PROJECT_BY_CATEGORY, 
+        payload: {
+          message: err, 
+          error: true
+        }
+      })
+    }
+  }
+}
+
+// Get project by ProjectID
+export function getProjectDetail(id) {
+  return async dispatch => {
+    try {
+      dispatch({type: actionTypes.REQUEST_GET_PROJECT_BY_PROJECT_ID})
+      const request = await apiURL.get(`/projects/${id}`);
+      dispatch({type: actionTypes.SUCCESS_GET_PROJECT_BY_PROJECT_ID, payload: request.data})
+    } catch(err) {
+      dispatch({
+        type: actionTypes.FAILURE_GET_PROJECT_BY_PROJECT_ID, 
         payload: {
           message: err, 
           error: true

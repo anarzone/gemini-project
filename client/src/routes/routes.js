@@ -4,7 +4,9 @@ import PrivateRoute from "./PrivateRoute";
 
 // COMPONENTS
 import Home from "../components/page/home/Home";
-import ProjectsPage from "../components/page/projects/Projects";
+import ProjectTypesContainer from "../containers/Landing/Projects/ProjectTypesContainer";
+import ProjectsContainer from "../containers/Landing/Projects/ProjectsContainer";
+import ProjectDetailContainer from "../containers/Landing/Projects/ProjectDetailContainer";
 import Expertises from "../components/page/expertises/Expertises";
 import ExpertiseDetail from "../components/page/expertises/ExpertiseDetail";
 import About from "../components/page/about/About";
@@ -17,7 +19,9 @@ const Routes = () => (
   <div>
     <Route path="/" exact component={Home} />
     <Route path="/about" exact component={About} />
-    <Route path="/projects" exact component={ProjectsPage} />
+    <Route path="/projects" exact component={ProjectTypesContainer} />
+    <Route path="/projects/types/:id" exact component={ProjectsContainer} />
+    <Route path="/projects/:id" exact component={ProjectDetailContainer} />
     <Route path="/expertises" exact component={Expertises} />
     <Route path="/expertises/detail" exact component={ExpertiseDetail} />
     <Route path="/contact" exact component={Contact} />

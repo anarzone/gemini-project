@@ -1,6 +1,7 @@
 const errors = require("restify-errors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const rjwt = require('restify-jwt-community');
 const config = require("../config");
 // LOAD MODELS
 const Admin = require("../models/Admin");
@@ -8,7 +9,7 @@ const auth = require("../auth");
 
 module.exports = server => {
   // Register admin to the database
-  server.post("/register", (req, res, next) => {
+  server.post("/register", async (req, res, next) => {
     const { email, password } = req.body;
     const admin = new Admin({
       email,
