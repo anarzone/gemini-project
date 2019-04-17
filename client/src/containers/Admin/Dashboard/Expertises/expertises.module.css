@@ -1,0 +1,18 @@
+.myCard {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.tableHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.title {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

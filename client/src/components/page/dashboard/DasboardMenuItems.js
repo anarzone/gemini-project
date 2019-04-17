@@ -80,36 +80,20 @@ class DasboardMenuItems extends React.Component {
           <Link to="/dashboard" className={classes.parentLink}>
             Proyektlər
           </Link>
-          {menu.project.openDropdown ? (
+          {/*menu.project.openDropdown ? (
             <ExpandLess className={classes.expand} />
           ) : (
             <ExpandMore className={classes.expand} />
-          )}
+          )*/}
         </ListItem>
-        <Collapse in={menu.project.openDropdown} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemIcon>
-                <AddBox />
-              </ListItemIcon>
-              <Link to="/" className={classes.subLink}>
-                Yeni proyekt
-              </Link>
-            </ListItem>
-          </List>
-        </Collapse>
         <ListItem button onClick={() => this.handleClick("expertise")}>
           <ListItemIcon><AddBox /></ListItemIcon>
-          <Link to="/" className={classes.parentLink}>
+          <Link to="/dashboard/expertises" className={classes.parentLink}>
             Fəaliyyətlər
           </Link>
-          {menu.expertise.openDropdown ? (
-            <ExpandLess className={classes.expand} />
-          ) : (
-            <ExpandMore className={classes.expand} />
-          )}
+          
         </ListItem>
-        <Collapse in={menu.expertise.openDropdown} timeout="auto" unmountOnExit>
+        {/*<Collapse in={menu.expertise.openDropdown} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}>
               <ListItemIcon>
@@ -120,19 +104,19 @@ class DasboardMenuItems extends React.Component {
               </Link>
             </ListItem>
           </List>
-        </Collapse>
+        </Collapse>*/}
         <ListItem button onClick={() => this.handleClick("slider")}>
           <ListItemIcon><AddBox /></ListItemIcon>
           <Link to="/" className={classes.parentLink}>
             Slider
           </Link>
-          {menu.slider.openDropdown ? (
+          {/*menu.slider.openDropdown ? (
             <ExpandLess className={classes.expand} />
           ) : (
             <ExpandMore className={classes.expand} />
-          )}
+          )*/}
         </ListItem>
-        <Collapse in={menu.slider.openDropdown} timeout="auto" unmountOnExit>
+        {/*<Collapse in={menu.slider.openDropdown} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItem button className={classes.nested}>
               <ListItemIcon>
@@ -143,7 +127,7 @@ class DasboardMenuItems extends React.Component {
               </Link>
             </ListItem>
           </List>
-        </Collapse>
+        </Collapse>*/}
       </List>
     );
   }
