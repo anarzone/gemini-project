@@ -50,6 +50,9 @@ class DasboardMenuItems extends React.Component {
       },
       slider: {
         openDropdown: false
+      },
+      company: {
+        openDropdown: false
       }
     },
     open: true
@@ -107,27 +110,17 @@ class DasboardMenuItems extends React.Component {
         </Collapse>*/}
         <ListItem button onClick={() => this.handleClick("slider")}>
           <ListItemIcon><AddBox /></ListItemIcon>
-          <Link to="/" className={classes.parentLink}>
+          <Link to="/dashboard/slider" className={classes.parentLink}>
             Slider
           </Link>
-          {/*menu.slider.openDropdown ? (
-            <ExpandLess className={classes.expand} />
-          ) : (
-            <ExpandMore className={classes.expand} />
-          )*/}
         </ListItem>
-        {/*<Collapse in={menu.slider.openDropdown} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
-              <ListItemIcon>
-                <AddBox />
-              </ListItemIcon>
-              <Link to="/" className={classes.subLink}>
-                Yeni slider
-              </Link>
-            </ListItem>
-          </List>
-        </Collapse>*/}
+
+        <ListItem button onClick={() => this.handleClick("company")}>
+          <ListItemIcon><AddBox /></ListItemIcon>
+          <Link to="/dashboard/company" className={classes.parentLink}>
+            Haqqımızda
+          </Link>
+        </ListItem>
       </List>
     );
   }

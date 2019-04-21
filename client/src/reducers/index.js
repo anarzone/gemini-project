@@ -4,6 +4,7 @@ import errorReducer from "./errorReducer";
 import projectCategoriesReducer from './projectCategoriesReducer';
 import projectsReducer from './projectsReducer';
 import expertiseReducer from './expertiseReducer';
+import teamReducer from './teamReducer';
 import localeReducer from './localeReducer';
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   projectCategories: projectCategoriesReducer,
   projects: projectsReducer,
   expertises: expertiseReducer,
+  team: teamReducer,
   locale: localeReducer
 });

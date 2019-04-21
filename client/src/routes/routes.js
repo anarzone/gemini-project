@@ -15,6 +15,7 @@ import Contact from "../components/page/contact/Contact";
 import AdminLogin from "../containers/Admin/AdminLogin";
 import Projects from "../containers/Admin/Dashboard/Projects/Projects";
 import ExpertiseContainer from '../containers/Admin/Dashboard/Expertises/Expertises';
+import CompanyContainer from '../containers/Admin/Dashboard/Company/Company';
 
 const Routes = () => (
   <div>
@@ -31,6 +32,8 @@ const Routes = () => (
     <Switch>
       <PrivateRoute exact path="/dashboard" component={Projects} />
       <PrivateRoute exact path="/dashboard/expertises" component={ExpertiseContainer} />
+      {/*<PrivateRoute exact path="/dashboard/slider" component={SliderContainer} />*/}
+      <PrivateRoute exact path="/dashboard/company" component={CompanyContainer} />
     </Switch>
   </div>
 );
