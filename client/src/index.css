@@ -115,3 +115,10 @@ input, textarea {
   position: absolute;
   z-index: 3;
 }
+
+textarea {
+  line-height: 22px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  max-height: 170px
+}

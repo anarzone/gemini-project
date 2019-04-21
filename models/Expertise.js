@@ -3,12 +3,12 @@ const timestamp = require("mongoose-timestamp");
 const mongooseIntl = require("mongoose-intl");
 
 const ExpertiseSchema = new mongoose.Schema({
-  expertiseType: {
+  name: {
     type: String,
     trim: true,
     intl: true
   },
-  body: {
+  content: {
     type: String,
     trim: true,
     intl: true

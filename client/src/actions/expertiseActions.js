@@ -1,7 +1,7 @@
 import { apiURL } from '../axios';
 import * as actionTypes from './types';
 
-// Add new category for the project
+// Add new expertise
 export function addExpertise(data) {
   return async dispatch => {
     try {
@@ -29,4 +29,36 @@ export function addExpertise(data) {
       })
     }
   };
+}
+
+// Get all expertises
+export function getExpertises() {
+  return async dispatch => {
+    dispatch({ type: actionTypes.REQUEST_GET_ALL_EXPERTISES })
+    try {
+      const req = await apiURL.get('/expertises');
+      dispatch({ type: actionTypes.SUCCESS_GET_ALL_EXPERTISES, payload: req.data })
+    } catch(err) {
+      dispatch({ 
+        type: actionTypes.FAILURE_GET_ALL_EXPERTISES, 
+        payload: {
+          message: err.message,
+          error: true
+        } 
+      })
+    }
+  }
+}
+
+// Delete Expertise by id
+export function deleteExpertise(id) {
+  return async dispatch => {
+    dispatch({ type: actionTypes.REQUEST_DELETE_EXPERTISE })
+    try {
+      const request = await apiURL.delete(`/expertises/${id}`);
+      dispatch({ type: actionTypes.SUCCESS_DELETE_EXPERTISE, payload: request.status })
+    } catch(err) {
+      dispatch({ type: actionTypes.FAILURE_DELETE_EXPERTISE, payload: err.message })
+    }
+  }
 }

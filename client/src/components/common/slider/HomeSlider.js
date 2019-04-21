@@ -34,7 +34,7 @@ class HomeSlider extends Component {
             <a href="/" className={styles.sliderLink}>
               <div className={styles.overlayBg} />
               <img
-                src="/assets/images/slider-1.jpg"
+                src="/assets/images/image1.jpg"
                 alt="Slider"
                 className={styles.sliderImg}
               />
@@ -59,7 +59,7 @@ class HomeSlider extends Component {
             <a href="/" className={styles.sliderLink}>
               <div className={styles.overlayBg} />
               <img
-                src="/assets/images/slider-2.jpg"
+                src="/assets/images/image2.jpg"
                 alt="Slider"
                 className={styles.sliderImg}
               />
@@ -84,17 +84,17 @@ class HomeSlider extends Component {
             <a href="/" className={styles.sliderLink}>
               <div className={styles.overlayBg} />
               <img
-                src="/assets/images/slider-3.jpg"
+                src="/assets/images/image3.jpg"
                 alt="Slider"
                 className={styles.sliderImg}
               />
               {/*<video
-            loop
-            autoPlay
-            controls={false}
-            className={styles.video}
-            src="https://player.vimeo.com/external/311936776.hd.mp4?s=3e784fde7cb4003a2ba6bdab65435a63478b535b&amp;profile_id=175"
-          />*/}
+                loop
+                autoPlay
+                controls={false}
+                className={styles.video}
+                src="https://player.vimeo.com/external/311936776.hd.mp4?s=3e784fde7cb4003a2ba6bdab65435a63478b535b&amp;profile_id=175"
+              />*/}
               <div className={styles.title}>
                 <h6>01 February 2019</h6>
                 <h3>

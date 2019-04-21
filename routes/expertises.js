@@ -8,8 +8,10 @@ const config = require("../config");
 const Expertise = require('../models/Expertise');
 
 module.exports = server => {
+
+  // Create a new expertise
   server.post('/expertises', rjwt({ secret: config.JWT_SECRET }), async(req, res, next) => {
-    const type = JSON.parse(req.body.type);
+    const name = JSON.parse(req.body.name);
     const content = JSON.parse(req.body.content)
     
     // Upload file to client folder
@@ -26,12 +28,12 @@ module.exports = server => {
     }
 
     const expertise = new Expertise({});
-    expertise.expertiseType = {
-      az: type.az,
-      en: type.en,
-      ru: type.ru
+    expertise.name = {
+      az: name.az,
+      en: name.en,
+      ru: name.ru
     }
-    expertise.body = {
+    expertise.content = {
       az: content.az,
       en: content.en,
       ru: content.ru
@@ -43,6 +45,34 @@ module.exports = server => {
       next();
     } catch (err) {
       return next(new errors.InvalidContentError(err));
+    }
+  })
+
+  // Get all expertises
+  server.get('/expertises', async(req, res, next) => {
+    const expertises = await Expertise.find({});
+    next();
+    try {
+      res.send(expertises);
+    } catch (err) {
+      return next(new errors.InvalidContentError(err));
+    }
+  })
+
+  // Delete expertise by id
+  server.del('/expertises/:id', rjwt({ secret: config.JWT_SECRET }), async(req, res, next) => {
+    try {
+      const expertise = await Expertise.findOneAndRemove({
+        _id: req.params.id
+      });
+      res.send(204);
+      next();
+    } catch (err) {
+      return next(
+        new errors.ResourceNotFoundError(
+          `There is no expertise with the id of ${req.params.id}`
+        )
+      );
     }
   })
 }

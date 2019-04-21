@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
+import { getExpertises, deleteExpertise } from '../../../../actions/expertiseActions';
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
 import Add from "@material-ui/icons/Add";
@@ -11,11 +12,26 @@ import styles from './expertises.module.css';
 
 class ExpertiseContainer extends Component {
   state = {
-    openPopup: false
+    openPopup: false,
+    isFetchingExpertises: true,
   };
 
-  componentDidMount = async () => {
-    
+  componentDidMount = () => {
+    this.props.dispatch(getExpertises());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.expertises !== this.props.expertises) {
+      if(!nextProps.expertises.isPending) {
+        this.setState({
+          isFetchingExpertises: false
+        })
+      }
+    }
+  }
+
+  onDeleteExpertise = (id) => {
+    this.props.dispatch(deleteExpertise(id))
   }
 
   handleClickOpenPopup = () => {
@@ -40,18 +56,21 @@ class ExpertiseContainer extends Component {
           </Button>
         </div>
         <AddExpertise openDialog={this.state.openPopup} closeDialog={this.handleClickClosePopup} />
-        <ExpertiseList />
+        <ExpertiseList 
+          loading={this.state.isFetchingExpertises} 
+          expertises={this.props.expertises.list} 
+          deleteExpertise={this.onDeleteExpertise}
+        />
       </Card>
     );
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     categories: state.projectCategories.list,
-//     projects: state.projects.list,
-//     lang: state.locale.lang
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    expertises: state.expertises,
+    lang: state.locale.lang
+  }
+}
 
-export default connect()(ExpertiseContainer);
+export default connect(mapStateToProps)(ExpertiseContainer);

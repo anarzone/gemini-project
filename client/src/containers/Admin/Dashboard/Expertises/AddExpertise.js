@@ -14,7 +14,7 @@ import FormDialog from '../../../../components/widgets/FormDialog/FormDialog';
 
 class AddExpertise extends Component {
   state = {
-    type: {
+    name: {
       az: '',
       en: '',
       ru: ''
@@ -34,13 +34,20 @@ class AddExpertise extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    // if(nextProps.categories.success) {
-    //   this.setState({
-    //     success: true, 
-    //     openSnackBar: true, 
-    //     responseMessage: nextProps.categories.success.message
-    //   })
-    // } 
+    if(nextProps.expertises.success) {
+      this.setState({
+        success: true, 
+        openSnackBar: true, 
+        responseMessage: nextProps.expertises.success.message
+      })
+    } else if(nextProps.expertises.error) {
+      this.setState({
+        success: false, 
+        error: true,
+        openSnackBar: true, 
+        responseMessage: nextProps.expertises.error.message
+      })
+    } 
   }
 
   handleClickOpen = () => {
@@ -58,11 +65,13 @@ class AddExpertise extends Component {
   handleChange = (name, lang) => event => {
     this.setState({
       [name]: {
-        [lang]: event.target.value.trim()
+        ...this.state[name],
+        [lang]: event.target.value
       }
     });
   };
 
+  // File change handler to upload expertise image
   fileChangedHandler = event => {
     console.log(event.target.files[0])
     this.setState({ selectedImage: event.target.files[0] });
@@ -76,17 +85,16 @@ class AddExpertise extends Component {
 
   onSubmitFormHandler = e => {
     e.preventDefault();
-    const { type, content, selectedImage } = this.state;
-    if(!isEmpty(type.az) && !isEmpty(type.en) && !isEmpty(type.ru) && !isEmpty(content.az) && !isEmpty(content.en) && !isEmpty(content.ru)) {
-      console.log(type)
+    const { name, content, selectedImage } = this.state;
+    if(!isEmpty(name.az) && !isEmpty(name.en) && !isEmpty(name.ru) && !isEmpty(content.az) && !isEmpty(content.en) && !isEmpty(content.ru)) {
       const formData = new FormData();
       formData.append('bannerImage', selectedImage);
-      formData.append('type', JSON.stringify(type))
-      formData.append('content', JSON.stringify(content))
-      console.log('FORM DATA', formData)
+      formData.append('name', JSON.stringify(name));
+      formData.append('content', JSON.stringify(content));
+      console.log('NAME', name, 'CONTENT', content)
       this.props.dispatch(addExpertise(formData));
       this.setState({
-        type: {
+        name: {
           az: '',
           en: '',
           ru: ''
@@ -110,7 +118,7 @@ class AddExpertise extends Component {
       responseMessage, 
       openSnackBar,
       content,
-      type
+      name
     } = this.state;
     const { openDialog, closeDialog } = this.props;
     return (
@@ -135,7 +143,7 @@ class AddExpertise extends Component {
           onClose={closeDialog}
           onSubmitForm={e => this.onSubmitFormHandler(e)}
           // isLoading={this.props.categories.isPending}
-          type="Yeni kategoriya elave et"
+          title="Yeni kategoriya elave et"
         >
         <Grid container spacing={24}>
         <Grid item md={6}>
@@ -146,8 +154,8 @@ class AddExpertise extends Component {
           label="Fəaliyyət adı - aze"
           placeholder="Fəaliyyət adı - aze"
           type="text"
-          value={type.az}
-          onChange={this.handleChange("type","az")}
+          value={name.az}
+          onChange={this.handleChange("name","az")}
           fullWidth
           style={{ marginTop: 22 }}
           InputLabelProps={{
@@ -183,8 +191,8 @@ class AddExpertise extends Component {
           label="Fəaliyyət adı - rus"
           placeholder="Fəaliyyət adı - rus"
           type="text"
-          value={type.ru}
-          onChange={this.handleChange("type","ru")}
+          value={name.ru}
+          onChange={this.handleChange("name","ru")}
           fullWidth
           style={{ marginTop: 22 }}
           InputLabelProps={{
@@ -219,8 +227,8 @@ class AddExpertise extends Component {
         label="Fəaliyyət adı - eng"
         placeholder="Fəaliyyət adı - eng"
         type="text"
-        value={type.en}
-        onChange={this.handleChange("type","en")}
+        value={name.en}
+        onChange={this.handleChange("name","en")}
         fullWidth
         style={{ marginTop: 22 }}
         InputLabelProps={{
@@ -289,10 +297,10 @@ class AddExpertise extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     categories: state.projectCategories,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    expertises: state.expertises,
+  };
+};
 
-export default connect()(AddExpertise);
+export default connect(mapStateToProps)(AddExpertise);

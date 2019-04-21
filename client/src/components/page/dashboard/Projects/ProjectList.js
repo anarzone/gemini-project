@@ -48,7 +48,7 @@ function ProjectList(props) {
                 <TableCell align="left"><Moment date={project.createdAt} format="YYYY/MM/DD" /></TableCell>
                 <TableCell align="left">{`${project.projectImages.length} şəkil`}</TableCell>
                 <TableCell align="right">
-                  <IconButton aria-label="Delete">
+                  <IconButton aria-label="Edit">
                     <Edit />
                   </IconButton>
                   <IconButton aria-label="Delete">
