@@ -59,6 +59,22 @@ module.exports = server => {
     }
   })
 
+   // Get expertise by id
+   server.get('/expertises/:id', async(req, res, next) => {
+    const { id } = req.params;
+    await Expertise.findById(id, function(err, expertise){
+      if(err) {
+        return next(new errors.NotFoundError(err));
+      }
+      try {
+        res.json(expertise)
+        next()
+      } catch(err) {
+        return next(new errors.InvalidContentError(err));
+      }
+    });
+   })
+
   // Delete expertise by id
   server.del('/expertises/:id', rjwt({ secret: config.JWT_SECRET }), async(req, res, next) => {
     try {
@@ -75,4 +91,6 @@ module.exports = server => {
       );
     }
   })
+
+ 
 }

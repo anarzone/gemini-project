@@ -50,6 +50,19 @@ export function getExpertises() {
   }
 }
 
+// Get expertise by id
+export function getSelectedExpertise(id) {
+  return async dispatch => {
+    dispatch({type: actionTypes.REQUEST_GET_EXPERTISE_BY_ID})
+    try {
+      const request = await apiURL.get(`/expertises/${id}`)
+      dispatch({ type: actionTypes.SUCCESS_GET_EXPERTISE_BY_ID, payload: request.data })
+    } catch(err) {
+      dispatch({ type: actionTypes.FAILURE_GET_EXPERTISE_BY_ID, payload: err.message })
+    }
+  }
+}
+
 // Delete Expertise by id
 export function deleteExpertise(id) {
   return async dispatch => {

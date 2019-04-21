@@ -2,13 +2,13 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 
-// COMPONENTS
+// LANDING
 import Home from "../components/page/home/Home";
 import ProjectTypesContainer from "../containers/Landing/Projects/ProjectTypesContainer";
 import ProjectsContainer from "../containers/Landing/Projects/ProjectsContainer";
 import ProjectDetailContainer from "../containers/Landing/Projects/ProjectDetailContainer";
-import Expertises from "../components/page/expertises/Expertises";
-import ExpertiseDetail from "../components/page/expertises/ExpertiseDetail";
+import ExpertisesContainer from "../containers/Landing/Expertises/ExpertisesContainer";
+import ExpertiseDetailContainer from "../containers/Landing/Expertises/ExpertiseDetailContainer";
 import About from "../components/page/about/About";
 import Contact from "../components/page/contact/Contact";
 // DASHBOARD
@@ -23,8 +23,8 @@ const Routes = () => (
     <Route path="/projects" exact component={ProjectTypesContainer} />
     <Route path="/projects/types/:id" exact component={ProjectsContainer} />
     <Route path="/projects/:id" exact component={ProjectDetailContainer} />
-    <Route path="/expertises" exact component={Expertises} />
-    <Route path="/expertises/detail" exact component={ExpertiseDetail} />
+    <Route path="/expertises" exact component={ExpertisesContainer} />
+    <Route path="/expertises/:id" exact component={ExpertiseDetailContainer} />
     <Route path="/contact" exact component={Contact} />
 
     <Route path="/admin" component={AdminLogin} />

@@ -1,26 +1,22 @@
 import React, { Component, Fragment } from "react";
 import { Zoom } from "react-reveal";
 import LandingLayout from '../../common/layout/LandingLayout';
-import Card from "../../common/card/Card";
 import CategoryFilter from "../../projects/CategoryFilter";
 
 import styles from './expertises.module.css';
 
-class ExpertiseDetail extends Component {
-  render() {
+const ExpertiseDetail = ({ expertise }) => {
     return (
       <LandingLayout headerType="whiteBg">
         <CategoryFilter />
         <div className={styles.bannerImageDetail}>
-          <img src="/assets/images/project-5.jpg" alt="Expertise"/>
+          <img src={`/assets/images/${expertise.bannerImage}`} alt="Expertise"/>
         </div>
         <div className={styles.detailBox}>
-          <p className={styles.text}>The Environmental Engineering team designs efficient building systems that reduce energy and water consumption, enhances user comfort and ensures indoor environmental quality. There are many aspects to the team’s work including: Mechanical Engineering; Electrical Engineering; Public Health; Fire Protection; Vertical Transportation; Architectural Lighting Design; Building Physics and Sustainability.
-          </p>
+          {expertise.name ? <p className={styles.text}>{expertise.content.az}</p> : 'Loading...'}
         </div>
       </LandingLayout>
     );
-  }
 }
 
 export default ExpertiseDetail;
