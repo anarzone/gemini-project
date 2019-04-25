@@ -39,12 +39,12 @@ class Header extends Component {
         >
           <img src="/assets/images/gemini-logo.png" alt="Logo" />
         </Link>
-        <HeaderSearch
+        {/*<HeaderSearch
           show={this.state.showSearchBar}
           onShow={this.showSearchBar}
           onHide={this.hideSearchBar}
           whiteHeader={this.props.headerStyle ? true : false}
-        />
+        />*/}
         <Nav
           showedSearchBar={this.state.showSearchBar}
           whiteHeader={this.props.headerStyle ? true : false}

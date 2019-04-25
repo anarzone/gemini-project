@@ -32,66 +32,20 @@ class TeamSection extends React.Component {
         <h2 className={classes.title}>Here is our team</h2>
         <div>
           <GridContainer style={{marginLeft: "0", marginRight: "0"}}>
-            <GridItem xs={12} sm={12} md={4}>
+            {this.props.data ? this.props.data.map((team, index) => (
+              <GridItem xs={12} sm={12} md={4} key={index}>
               <Card plain>
                 <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src='/assets/images/team-1.png' alt="..." className={imageClasses} />
+                  <img src={`/assets/images/${team.avatar}`} alt="..." className={imageClasses} />
                 </GridItem>
                 <h4 className={classes.cardTitle}>
-                Lorem Ipsum
+                {team.name}
                   <br />
-                  <small className={classes.smallTitle}>Model</small>
+                  <small className={classes.smallTitle}>{team.position}</small>
                 </h4>
               </Card>
             </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <Card plain>
-                <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src='/assets/images/team-2.png' alt="..." className={imageClasses} />
-                </GridItem>
-                <h4 className={classes.cardTitle}>
-                  Lorem Ipsum
-                  <br />
-                  <small className={classes.smallTitle}>Designer</small>
-                </h4>
-              </Card>
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <Card plain>
-                <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src='/assets/images/team-3.png' alt="..." className={imageClasses} />
-                </GridItem>
-                <h4 className={classes.cardTitle}>
-                Lorem Ipsum
-                  <br />
-                  <small className={classes.smallTitle}>Model</small>
-                </h4>
-              </Card>
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <Card plain>
-                <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src='/assets/images/team-4.png' alt="..." className={imageClasses} />
-                </GridItem>
-                <h4 className={classes.cardTitle}>
-                Lorem Ipsum
-                  <br />
-                  <small className={classes.smallTitle}>Model</small>
-                </h4>
-              </Card>
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <Card plain>
-                <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                  <img src='/assets/images/team-5.png' alt="..." className={imageClasses} />
-                </GridItem>
-                <h4 className={classes.cardTitle}>
-                Lorem Ipsum
-                  <br />
-                  <small className={classes.smallTitle}>Model</small>
-                </h4>
-              </Card>
-            </GridItem>
+            )) : 'Loading...'}
           </GridContainer>
         </div>
       </div>

@@ -179,4 +179,14 @@ export function getProjectDetail(id) {
   }
 }
 
-// Get project by projectId, nameLang and contentLang parameters
+// Delete project
+export function deleteProject(id) {
+  return async dispatch => {
+    try {
+      const request = await apiURL.delete(`/projects/${id}`);
+      dispatch({ type: actionTypes.SUCCESS_DELETE_PROJECT, payload: request.status })
+    } catch(err) {
+      dispatch({ type: actionTypes.FAILURE_DELETE_PROJECT, payload: err.message })
+    }
+  }
+}

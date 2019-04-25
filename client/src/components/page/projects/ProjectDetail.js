@@ -3,6 +3,8 @@ import { Grid } from '@material-ui/core';
 import { Zoom, Fade } from "react-reveal";
 import LandingLayout from '../../common/layout/LandingLayout';
 import Card from "../../common/card/Card";
+import ImageGallery from 'react-image-gallery';
+
 
 import styles from './projectDetail.module.css';
 
@@ -35,6 +37,8 @@ class ProjectDetail extends Component {
           <p className={styles.text}>
             {project.content ? project.content.az : '...'}
           </p>
+          <button>Gallery</button>
+          <ImageGallery  />
         </div>
         <div className={styles.heroImg}>
           <Fade>

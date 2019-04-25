@@ -35,9 +35,6 @@ class CompanyContainer extends Component {
     }
   }
 
-  onDeleteExpertise = (id) => {
-    // this.props.dispatch(deleteExpertise(id))
-  }
 
   deleteTeamMember = (id) => {
     this.props.dispatch(deleteTeamMember(id))
@@ -54,7 +51,7 @@ class CompanyContainer extends Component {
   render() {
     return (
       <Fragment>
-        <Card className={styles.myCard}>
+        {/*<Card className={styles.myCard}>
           <div className={styles.tableHeading}>
             <h2 className={styles.title}>Şirkət haqqında</h2>
             <Button
@@ -65,7 +62,7 @@ class CompanyContainer extends Component {
               <Edit />
             </Button>
           </div>
-        </Card>
+    </Card>*/}
 
         <Card className={styles.myCard}>
           <div className={styles.tableHeading}>

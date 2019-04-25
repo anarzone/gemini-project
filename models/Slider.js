@@ -14,7 +14,7 @@ const SliderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  url: {
+  url: {                                
     videoUrl: {type: mongoose.SchemaTypes.Url, required: true} 
   }
 });

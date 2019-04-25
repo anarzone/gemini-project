@@ -227,9 +227,9 @@ class Dashboard extends React.Component {
           open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={this.handleDrawerClose}>
+            {/*<IconButton onClick={this.handleDrawerClose}>
               <ChevronLeftIcon />
-            </IconButton>
+        </IconButton>*/}
           </div>
           <Divider />
           <DasboardMenuItems />

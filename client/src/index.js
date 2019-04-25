@@ -17,6 +17,7 @@ import "../node_modules/slick-carousel/slick/slick.css";
 import "../node_modules/slick-carousel/slick/slick-theme.css";
 import "./assets/styles/vendorOverride.css";
 import "./index.css";
+import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import * as serviceWorker from "./serviceWorker";
 
 addLocaleData(az);
